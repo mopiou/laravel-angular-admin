@@ -26,6 +26,27 @@ class UserController extends Controller
     }
 
     /**
+     * Create new user.
+     *
+     * @return JSON
+     */
+    public function postMe()
+    {
+        $currentUser = Auth::user();
+
+        $user = User::create([
+            'name' => Input::get('user'),
+            'slug' => str_slug(Input::get('slug'), '.'),
+            'description' => Input::get('description'),
+        ]);
+
+        return response()->success(compact('user'));
+    }
+
+
+
+
+    /**
      * Update user current context.
      *
      * @return JSON success message
